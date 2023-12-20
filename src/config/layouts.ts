@@ -1,38 +1,38 @@
 import { getConfigLayout } from "@/utils/cache/local-storage"
 
-/** 项目配置类型 */
+/** 프로젝트 설정 유형 */
 export interface LayoutSettings {
-  /** 是否显示 Settings Panel */
+  /** 설정 패널 표시 여부 */
   showSettings: boolean
-  /** 布局模式 */
+  /** 레이아웃 모드 */
   layoutMode: "left" | "top" | "left-top"
-  /** 是否显示标签栏 */
+  /** 태그 뷰 표시 여부 */
   showTagsView: boolean
-  /** 是否显示 Logo */
+  /** 로고 표시 여부 */
   showLogo: boolean
-  /** 是否固定 Header */
+  /** 헤더 고정 여부 */
   fixedHeader: boolean
-  /** 是否显示页脚 Footer */
+  /** 푸터 표시 여부 */
   showFooter: boolean
-  /** 是否显示消息通知 */
+  /** 알림 표시 여부 */
   showNotify: boolean
-  /** 是否显示切换主题按钮 */
+  /** 테마 전환 버튼 표시 여부 */
   showThemeSwitch: boolean
-  /** 是否显示全屏按钮 */
+  /** 전체 화면 버튼 표시 여부 */
   showScreenfull: boolean
-  /** 是否显示搜索按钮 */
+  /** 검색 버튼 표시 여부 */
   showSearchMenu: boolean
-  /** 是否缓存标签栏 */
+  /** 태그 뷰 캐시 여부 */
   cacheTagsView: boolean
-  /** 开启系统水印 */
+  /** 시스템 워터마크 활성화 여부 */
   showWatermark: boolean
-  /** 是否显示灰色模式 */
+  /** 회색 모드 표시 여부 */
   showGreyMode: boolean
-  /** 是否显示色弱模式 */
+  /** 색감 약화 모드 표시 여부 */
   showColorWeakness: boolean
 }
 
-/** 默认配置 */
+/** 기본 설정 */
 const defaultSettings: LayoutSettings = {
   layoutMode: "left",
   showSettings: true,
@@ -45,10 +45,10 @@ const defaultSettings: LayoutSettings = {
   showScreenfull: true,
   showSearchMenu: true,
   cacheTagsView: false,
-  showWatermark: true,
+  showWatermark: false,
   showGreyMode: false,
   showColorWeakness: false
 }
 
-/** 项目配置 */
+/** 프로젝트 설정 */
 export const layoutSettings: LayoutSettings = { ...defaultSettings, ...getConfigLayout() }

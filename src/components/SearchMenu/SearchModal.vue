@@ -11,7 +11,7 @@ import { DeviceEnum } from "@/constants/app-key"
 import { isExternal } from "@/utils/validate"
 
 interface Props {
-  /** 控制 modal 显隐 */
+  /** 모달의 표시 여부를 제어하는 모델 값입니다. */
   modelValue: boolean
 }
 
@@ -30,12 +30,12 @@ const searchResultRef = ref<InstanceType<typeof SearchResult> | null>(null)
 const keyword = ref<string>("")
 const resultList = shallowRef<RouteRecordRaw[]>([])
 const activeRouteName = ref<RouteRecordName | undefined>(undefined)
-/** 是否按下了上键或下键（用于解决和 mouseenter 事件的冲突） */
+/** 위 아래 키를 눌렀는지 여부 (mouseenter 이벤트와의 충돌을 해결하기 위함) */
 const isPressUpOrDown = ref<boolean>(false)
 
-/** 控制搜索对话框宽度 */
+/** 검색 다이얼로그 너비를 제어합니다. */
 const modalWidth = computed(() => (appStore.device === DeviceEnum.Mobile ? "80vw" : "40vw"))
-/** 控制搜索对话框显隐 */
+/** 검색 다이얼로그의 표시 여부를 제어합니다. */
 const modalVisible = computed({
   get() {
     return props.modelValue
@@ -44,21 +44,21 @@ const modalVisible = computed({
     emit("update:modelValue", value)
   }
 })
-/** 树形菜单 */
+/** 트리형 메뉴 데이터 */
 const menusData = computed(() => cloneDeep(usePermissionStore().routes))
 
-/** 搜索（防抖） */
+/** 검색 (디바운스) */
 const handleSearch = debounce(() => {
   const flatMenusData = flatTree(menusData.value)
   resultList.value = flatMenusData.filter((menu) =>
     keyword.value ? menu.meta?.title?.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim()) : false
   )
-  // 默认选中搜索结果的第一项
+  // 검색 결과 중 첫 번째 아이템을 기본으로 선택합니다.
   const length = resultList.value?.length
   activeRouteName.value = length > 0 ? resultList.value[0].name : undefined
 }, 500)
 
-/** 将树形菜单扁平化为一维数组，用于菜单搜索 */
+/** 트리형 메뉴를 1차원 배열로 변환하여 메뉴 검색에 사용합니다. */
 const flatTree = (arr: RouteRecordRaw[], result: RouteRecordRaw[] = []) => {
   arr.forEach((item) => {
     result.push(item)
@@ -67,40 +67,40 @@ const flatTree = (arr: RouteRecordRaw[], result: RouteRecordRaw[] = []) => {
   return result
 }
 
-/** 关闭搜索对话框 */
+/** 검색 다이얼로그를 닫습니다. */
 const handleClose = () => {
   modalVisible.value = false
-  // 延时处理防止用户看到重置数据的操作
+  // 사용자가 데이터 재설정을 볼 수 없도록 지연 처리
   setTimeout(() => {
     keyword.value = ""
     resultList.value = []
   }, 200)
 }
 
-/** 根据下标位置进行滚动 */
+/** 색인 위치에 따라 스크롤합니다. */
 const scrollTo = (index: number) => {
   if (!searchResultRef.value) return
   const scrollTop = searchResultRef.value.getScrollTop(index)
-  // 手动控制 el-scrollbar 滚动条滚动，设置滚动条到顶部的距离
+  // el-scrollbar 스크롤 바를 수동으로 제어하여 맨 위로 스크롤합니다.
   scrollbarRef.value?.setScrollTop(scrollTop)
 }
 
-/** 键盘上键 */
+/** 키보드 위로 이동 */
 const handleUp = () => {
   isPressUpOrDown.value = true
   const { length } = resultList.value
   if (length === 0) return
-  // 获取该 name 在菜单中第一次出现的位置
+  // 해당 이름이 메뉴에서 처음으로 나타나는 위치 가져오기
   const index = resultList.value.findIndex((item) => item.name === activeRouteName.value)
-  // 如果已处在顶部
+  // 이미 맨 위에 있는 경우
   if (index === 0) {
     const bottomName = resultList.value[length - 1].name
-    // 如果顶部和底部的 bottomName 相同，且长度大于 1，就再跳一个位置（可解决遇到首尾两个相同 name 导致的上键不能生效的问题）
+    // 맨 위와 맨 아래의 bottomName이 같고 길이가 1보다 큰 경우, 한 번 더 이동 (맨 처음과 끝이 같아서 발생하는 키보드 위로 이동이 작동하지 않는 문제 해결)
     if (activeRouteName.value === bottomName && length > 1) {
       activeRouteName.value = resultList.value[length - 2].name
       scrollTo(length - 2)
     } else {
-      // 跳转到底部
+      // 맨 아래로 이동
       activeRouteName.value = bottomName
       scrollTo(length - 1)
     }
@@ -110,22 +110,22 @@ const handleUp = () => {
   }
 }
 
-/** 键盘下键 */
+/** 키보드 아래로 이동 */
 const handleDown = () => {
   isPressUpOrDown.value = true
   const { length } = resultList.value
   if (length === 0) return
-  // 获取该 name 在菜单中最后一次出现的位置（可解决遇到连续两个相同 name 导致的下键不能生效的问题）
+  // 해당 이름이 메뉴에서 가장 마지막에 나타나는 위치 (연속된 두 개의 동일한 이름으로 인한 키보드 아래로 이동이 작동하지 않는 문제 해결)
   const index = resultList.value.map((item) => item.name).lastIndexOf(activeRouteName.value)
-  // 如果已处在底部
+  // 이미 맨 아래에 있는 경우
   if (index === length - 1) {
     const topName = resultList.value[0].name
-    // 如果底部和顶部的 topName 相同，且长度大于 1，就再跳一个位置（可解决遇到首尾两个相同 name 导致的下键不能生效的问题）
+    // 맨 아래와 맨 위의 topName이 같고 길이가 1보다 큰 경우, 한 번 더 이동 (맨 처음과 끝이 같아서 발생하는 키보드 아래로 이동이 작동하지 않는 문제 해결)
     if (activeRouteName.value === topName && length > 1) {
       activeRouteName.value = resultList.value[1].name
       scrollTo(1)
     } else {
-      // 跳转到顶部
+      // 맨 위로 이동
       activeRouteName.value = topName
       scrollTo(0)
     }
@@ -135,7 +135,7 @@ const handleDown = () => {
   }
 }
 
-/** 键盘回车键 */
+/** 키보드 엔터 키 */
 const handleEnter = () => {
   const { length } = resultList.value
   if (length === 0) return
@@ -146,19 +146,19 @@ const handleEnter = () => {
     return
   }
   if (!name) {
-    ElMessage.warning("无法通过搜索进入该菜单，请为对应的路由设置唯一的 Name")
+    ElMessage.warning("이 메뉴로 검색하여 해당하는 라우트에 고유한 이름을 설정하세요.")
     return
   }
   try {
     router.push({ name })
   } catch {
-    ElMessage.error("该菜单有必填的动态参数，无法通过搜索进入")
+    ElMessage.error("이 메뉴에 필수적인 동적 매개변수가 있어 검색을 통해 접근할 수 없습니다.")
     return
   }
   handleClose()
 }
 
-/** 释放上键或下键 */
+/** 키보드 위로 또는 아래로 키 해제 */
 const handleReleaseUpOrDown = () => {
   isPressUpOrDown.value = false
 }
@@ -179,14 +179,14 @@ const handleReleaseUpOrDown = () => {
     class="search-modal__private"
     append-to-body
   >
-    <el-input ref="inputRef" v-model="keyword" @input="handleSearch" placeholder="搜索菜单" size="large" clearable>
+    <el-input ref="inputRef" v-model="keyword" @input="handleSearch" placeholder="메뉴 검색" size="large" clearable>
       <template #prefix>
         <SvgIcon name="search" />
       </template>
     </el-input>
-    <el-empty v-if="resultList.length === 0" description="暂无搜索结果" :image-size="100" />
+    <el-empty v-if="resultList.length === 0" description="검색 결과가 없습니다." :image-size="100" />
     <template v-else>
-      <p>搜索结果</p>
+      <p>검색 결과</p>
       <el-scrollbar ref="scrollbarRef" max-height="40vh" always>
         <SearchResult
           ref="searchResultRef"
@@ -208,9 +208,11 @@ const handleReleaseUpOrDown = () => {
   .svg-icon {
     font-size: 18px;
   }
+
   .el-dialog__header {
     display: none;
   }
+
   .el-dialog__footer {
     border-top: 1px solid var(--el-border-color);
     padding: var(--el-dialog-padding-primary);

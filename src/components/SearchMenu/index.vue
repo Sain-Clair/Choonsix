@@ -2,9 +2,10 @@
 import { ref } from "vue"
 import SearchModal from "./SearchModal.vue"
 
-/** 控制 modal 显隐 */
+/** 모달의 표시 여부를 제어합니다. */
 const modalVisible = ref<boolean>(false)
-/** 打开 modal */
+
+/** 모달을 엽니다. */
 const handleOpen = () => {
   modalVisible.value = true
 }
@@ -12,7 +13,7 @@ const handleOpen = () => {
 
 <template>
   <div>
-    <el-tooltip effect="dark" content="搜索菜单" placement="bottom">
+    <el-tooltip effect="dark" content="검색" placement="bottom">
       <SvgIcon name="search" @click="handleOpen" />
     </el-tooltip>
     <SearchModal v-model="modalVisible" />
@@ -22,6 +23,7 @@ const handleOpen = () => {
 <style lang="scss" scoped>
 .svg-icon {
   font-size: 20px;
+
   &:focus {
     outline: none;
   }
