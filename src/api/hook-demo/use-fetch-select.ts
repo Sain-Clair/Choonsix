@@ -1,35 +1,35 @@
-/** 模拟接口响应数据 */
+/** 모의 API 응답 데이터 */
 const SELECT_RESPONSE_DATA = {
   code: 0,
   data: [
     {
-      label: "苹果",
+      label: "사과",
       value: 1
     },
     {
-      label: "香蕉",
+      label: "바나나",
       value: 2
     },
     {
-      label: "橘子",
+      label: "오렌지",
       value: 3,
       disabled: true
     }
   ],
-  message: "获取 Select 数据成功"
+  message: "셀렉트 데이터 가져오기 성공"
 }
 
-/** 模拟接口 */
+/** 모의 API */
 export function getSelectDataApi() {
   return new Promise<typeof SELECT_RESPONSE_DATA>((resolve, reject) => {
-    // 模拟接口响应时间 2s
+    // 모의 API 응답 시간 2초
     setTimeout(() => {
-      // 模拟接口调用成功
+      // 모의 API 호출 성공
       if (Math.random() < 0.8) {
         resolve(SELECT_RESPONSE_DATA)
       } else {
-        // 模拟接口调用出错
-        reject(new Error("接口发生错误"))
+        // 모의 API 호출 오류
+        reject(new Error("API 오류 발생"))
       }
     }, 2000)
   })

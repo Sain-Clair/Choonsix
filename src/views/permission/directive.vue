@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from "vue"
-import { checkPermission } from "@/utils/permission" // checkPermission 权限判断函数
+import { checkPermission } from "@/utils/permission" // checkPermission 권한 판별 함수
 import SwitchRoles from "./components/SwitchRoles.vue"
 
-/** key 是为了能每次切换权限的时候重新初始化指令 */
+/** key는 권한을 전환할 때마다 지시문을 다시 초기화하기 위해 사용됩니다. */
 const key = ref(1)
 const handleRolesChange = () => {
   key.value++
@@ -13,39 +13,40 @@ const handleRolesChange = () => {
 <template>
   <div class="app-container">
     <SwitchRoles @change="handleRolesChange" />
-    <!-- v-permission 示例 -->
+    <!-- v-permission 예시 -->
     <div :key="key" class="margin-top-30">
       <div>
         <el-tag v-permission="['admin']" type="success" size="large" effect="plain">
-          这里采用了 v-permission="['admin']" 所以只有 admin 可以看见这句话
+          여기에 v-permission="['admin']"을 사용하여 admin만이이 문장을 볼 수 있습니다.
         </el-tag>
       </div>
       <div>
         <el-tag v-permission="['editor']" type="success" size="large" effect="plain">
-          这里采用了 v-permission="['editor']" 所以只有 editor 可以看见这句话
+          여기에 v-permission="['editor']"을 사용하여 editor만이이 문장을 볼 수 있습니다.
         </el-tag>
       </div>
       <div class="margin-top-15">
         <el-tag v-permission="['admin', 'editor']" type="success" size="large" effect="plain">
-          这里采用了 v-permission="['admin', 'editor']" 所以 admin 和 editor 都可以看见这句话
+          여기에 v-permission="['admin', 'editor']"을 사용하여 admin과 editor 모두이 문장을 볼 수 있습니다.
         </el-tag>
       </div>
     </div>
-    <!-- checkPermission 示例 -->
+    <!-- checkPermission 예시 -->
     <div :key="`checkPermission${key}`" class="margin-top-30">
       <el-tag type="warning" size="large">
-        例如 Element Plus 的 el-tab-pane 或 el-table-column 以及其它动态渲染 Dom 的场景不适合使用
-        v-permission，这种情况下你可以通过 v-if 和 checkPermission 来实现：
+        예를 들어 Element Plus의 el-tab-pane 또는 el-table-column 및 기타 동적 렌더링 Dom의 경우 v-permission을
+        사용하기에 적합하지 않습니다. 이러한 경우 v-if 및 checkPermission을 사용하여 구현할 수 있습니다.
       </el-tag>
       <el-tabs type="border-card" class="margin-top-15">
         <el-tab-pane v-if="checkPermission(['admin'])" label="admin">
-          这里采用了 <el-tag>v-if="checkPermission(['admin'])"</el-tag> 所以只有 admin 可以看见这句话
+          여기에 <el-tag>v-if="checkPermission(['admin'])"</el-tag>을 사용하여 admin만이이 문장을 볼 수 있습니다.
         </el-tab-pane>
         <el-tab-pane v-if="checkPermission(['editor'])" label="editor">
-          这里采用了 <el-tag>v-if="checkPermission(['editor'])"</el-tag> 所以只有 editor 可以看见这句话
+          여기에 <el-tag>v-if="checkPermission(['editor'])"</el-tag>을 사용하여 editor만이이 문장을 볼 수 있습니다.
         </el-tab-pane>
-        <el-tab-pane v-if="checkPermission(['admin', 'editor'])" label="admin 和 editor">
-          这里采用了 <el-tag>v-if="checkPermission(['admin', 'editor'])"</el-tag> 所以 admin 和 editor 都可以看见这句话
+        <el-tab-pane v-if="checkPermission(['admin', 'editor'])" label="admin과 editor">
+          여기에 <el-tag>v-if="checkPermission(['admin', 'editor'])"</el-tag>을 사용하여 admin 및 editor 모두이 문장을
+          볼 수 있습니다.
         </el-tab-pane>
       </el-tabs>
     </div>

@@ -10,11 +10,11 @@ const { loading, options, value } = useFetchSelect({
 <template>
   <div class="app-container">
     <h4>귀여운 춘식이</h4>
-    <h5>Select 춘식스</h5>
+    <h5>셀렉트 춘식스</h5>
     <el-select :loading="loading" v-model="value" filterable>
-      <el-option v-for="(item, index) in options" v-bind="item" :key="index" placeholder="请选择" />
+      <el-option v-for="(item, index) in options" v-bind="item" :key="index" placeholder="선택하세요" />
     </el-select>
-    <h5>Select V2 示例（如果数据量过多，可以选择该组件）</h5>
-    <el-select-v2 :loading="loading" v-model="value" :options="options" filterable placeholder="请选择" />
+    <h5>셀렉트 V2 예시 (데이터 양이 많은 경우에 사용할 수 있는 컴포넌트)</h5>
+    <el-select-v2 :loading="loading" v-model="value" :options="options" filterable placeholder="선택하세요" />
   </div>
 </template>

@@ -6,12 +6,13 @@ import { type GetTableResponseData } from "@/api/table/types/table"
 import RoleColumnSolts from "./tsx/RoleColumnSolts"
 import StatusColumnSolts from "./tsx/StatusColumnSolts"
 import {
-  type VxeGridInstance,
-  type VxeGridProps,
-  type VxeModalInstance,
-  type VxeModalProps,
-  type VxeFormInstance,
-  type VxeFormProps
+  //type
+  VxeGridInstance,
+  VxeGridProps,
+  VxeModalInstance,
+  VxeModalProps,
+  VxeFormInstance,
+  VxeFormProps
 } from "vxe-table"
 
 defineOptions({

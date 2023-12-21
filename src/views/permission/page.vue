@@ -11,7 +11,9 @@ const handleRolesChange = () => {
 <template>
   <div class="app-container">
     <SwitchRoles @change="handleRolesChange" />
-    <el-tag type="warning" size="large">当前页面只有 admin 权限可见，切换权限后将不能进入该页面</el-tag>
+    <el-tag type="warning" size="large"
+      >현재 페이지는 관리자(admin) 권한만 볼 수 있으며, 권한을 변경하면 해당 페이지에 액세스할 수 없습니다.</el-tag
+    >
   </div>
 </template>
 

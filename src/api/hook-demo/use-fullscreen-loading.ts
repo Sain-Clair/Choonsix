@@ -1,13 +1,13 @@
-/** 模拟接口响应数据 */
+/** 모의 API 응답 데이터 */
 const SUCCESS_RESPONSE_DATA = {
   code: 0,
   data: {
     list: [] as number[]
   },
-  message: "获取成功"
+  message: "성공적으로 가져왔습니다."
 }
 
-/** 模拟请求接口成功 */
+/** 성공적인 API 요청 모의 */
 export function getSuccessApi(list: number[]) {
   return new Promise<typeof SUCCESS_RESPONSE_DATA>((resolve) => {
     setTimeout(() => {
@@ -16,11 +16,11 @@ export function getSuccessApi(list: number[]) {
   })
 }
 
-/** 模拟请求接口失败 */
+/** 실패하는 API 요청 모의 */
 export function getErrorApi() {
   return new Promise((_resolve, reject) => {
     setTimeout(() => {
-      reject(new Error("发生错误"))
+      reject(new Error("오류가 발생했습니다."))
     }, 1000)
   })
 }
