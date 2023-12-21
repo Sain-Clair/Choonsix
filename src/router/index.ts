@@ -5,8 +5,8 @@ import routeSettings from "@/config/route"
 const Layouts = () => import("@/layouts/index.vue")
 
 /**
- * 常驻路由
- * 除了 redirect/403/404/login 等隐藏页面，其他页面建议设置 Name 属性
+ * 상수 라우트
+ * redirect/403/404/login과 같은 숨겨진 페이지를 제외하고 다른 페이지에는 Name 속성을 설정하는 것이 좋습니다.
  */
 export const constantRoutes: RouteRecordRaw[] = [
   {
@@ -52,7 +52,7 @@ export const constantRoutes: RouteRecordRaw[] = [
       {
         path: "dashboard",
         component: () => import("@/views/dashboard/index.vue"),
-        name: "Dashboard",
+        name: "대시보드",
         meta: {
           title: "춘식이1",
           svgIcon: "dashboard",
@@ -80,7 +80,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   {
     path: "/link",
     meta: {
-      title: "外链",
+      title: "외부 링크",
       svgIcon: "link"
     },
     children: [
@@ -89,7 +89,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => {},
         name: "Link1",
         meta: {
-          title: "中文文档"
+          title: "중문 문서"
         }
       },
       {
@@ -97,18 +97,19 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => {},
         name: "Link2",
         meta: {
-          title: "新手教程"
+          title: "초보자 가이드"
         }
       }
     ]
   },
+  // 여기까지 함
   {
     path: "/table",
     component: Layouts,
     redirect: "/table/element-plus",
     name: "Table",
     meta: {
-      title: "表格",
+      title: "표",
       elIcon: "Grid"
     },
     children: [
@@ -132,13 +133,15 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   },
+  //
+
   {
     path: "/menu",
     component: Layouts,
     redirect: "/menu/menu1",
     name: "Menu",
     meta: {
-      title: "多级路由",
+      title: "다중 라우트",
       svgIcon: "menu"
     },
     children: [
@@ -251,9 +254,9 @@ export const constantRoutes: RouteRecordRaw[] = [
 ]
 
 /**
- * 动态路由
- * 用来放置有权限 (Roles 属性) 的路由
- * 必须带有 Name 属性
+ * 동적 라우트
+ * 권한 (Roles 속성이 있는)이 있는 라우트를 배치하는 데 사용됩니다.
+ * Name 속성이 있어야합니다.
  */
 export const asyncRoutes: RouteRecordRaw[] = [
   {
@@ -262,10 +265,10 @@ export const asyncRoutes: RouteRecordRaw[] = [
     redirect: "/permission/page",
     name: "Permission",
     meta: {
-      title: "权限管理",
+      title: "권한 관리",
       svgIcon: "lock",
-      roles: ["admin", "editor"], // 可以在根路由中设置角色
-      alwaysShow: true // 将始终显示根菜单
+      roles: ["admin", "editor"], // 루트 라우트에서 역할 설정 가능
+      alwaysShow: true // 루트 메뉴 항상 표시
     },
     children: [
       {
@@ -273,8 +276,8 @@ export const asyncRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/permission/page.vue"),
         name: "PagePermission",
         meta: {
-          title: "页面权限",
-          roles: ["admin"] // 或者在子导航中设置角色
+          title: "페이지 권한",
+          roles: ["admin"] // 또는 서브 네비게이션에서 역할 설정 가능
         }
       },
       {
@@ -282,13 +285,13 @@ export const asyncRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/permission/directive.vue"),
         name: "DirectivePermission",
         meta: {
-          title: "指令权限" // 如果未设置角色，则表示：该页面不需要权限，但会继承根路由的角色
+          title: "지시문 권한" // 역할이 설정되지 않은 경우: 이 페이지에는 권한이 필요하지 않지만 루트 라우트의 역할을 상속받음
         }
       }
     ]
   },
   {
-    path: "/:pathMatch(.*)*", // Must put the 'ErrorPage' route at the end, 必须将 'ErrorPage' 路由放在最后
+    path: "/:pathMatch(.*)*", // 'ErrorPage' 라우트는 반드시 마지막에 두어야 함
     redirect: "/404",
     name: "ErrorPage",
     meta: {
@@ -302,9 +305,9 @@ const router = createRouter({
   routes: routeSettings.thirdLevelRouteCache ? flatMultiLevelRoutes(constantRoutes) : constantRoutes
 })
 
-/** 重置路由 */
+/** 라우터 재설정 */
 export function resetRouter() {
-  // 注意：所有动态路由路由必须带有 Name 属性，否则可能会不能完全重置干净
+  // 주의: 모든 동적 라우트는 반드시 Name 속성을 가져야하며, 그렇지 않으면 완전히 깨끗하게 재설정되지 않을 수 있음
   try {
     router.getRoutes().forEach((route) => {
       const { name, meta } = route
@@ -313,7 +316,7 @@ export function resetRouter() {
       }
     })
   } catch {
-    // 强制刷新浏览器也行，只是交互体验不是很好
+    // 강제로 브라우저 새로고침도 가능하지만 사용자 경험이 좋지 않음
     window.location.reload()
   }
 }

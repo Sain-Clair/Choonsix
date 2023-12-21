@@ -50,7 +50,7 @@ const handleLogin = () => {
           loading.value = false
         })
     } else {
-      console.error("表单校验不通过", fields)
+      console.error("양식 확인에 실패했습니다.", fields)
     }
   })
 }

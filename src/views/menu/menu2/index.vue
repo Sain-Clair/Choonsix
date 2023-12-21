@@ -2,7 +2,7 @@
 import { ref } from "vue"
 
 defineOptions({
-  name: "Menu2"
+  name: "메뉴2"
 })
 
 const text = ref("")
@@ -10,7 +10,7 @@ const text = ref("")
 
 <template>
   <div class="app-container">
-    <el-card header="二级路由缓存 - menu2">
+    <el-card header="이중 라우트 캐시 - 메뉴2">
       <el-input v-model="text" />
     </el-card>
   </div>

@@ -16,7 +16,7 @@ interface PaginationData {
   layout?: string
 }
 
-/** 默认的分页参数 */
+/** 기본 페이지네이션 데이터 */
 const defaultPaginationData: DefaultPaginationData = {
   total: 0,
   currentPage: 1,
@@ -26,13 +26,13 @@ const defaultPaginationData: DefaultPaginationData = {
 }
 
 export function usePagination(initialPaginationData: PaginationData = {}) {
-  /** 合并分页参数 */
+  /** 페이지네이션 데이터 병합 */
   const paginationData = reactive({ ...defaultPaginationData, ...initialPaginationData })
-  /** 改变当前页码 */
+  /** 현재 페이지 변경 */
   const handleCurrentChange = (value: number) => {
     paginationData.currentPage = value
   }
-  /** 改变页面大小 */
+  /** 페이지 크기 변경 */
   const handleSizeChange = (value: number) => {
     paginationData.pageSize = value
   }

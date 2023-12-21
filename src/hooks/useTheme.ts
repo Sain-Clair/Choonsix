@@ -4,7 +4,7 @@ import { getActiveThemeName, setActiveThemeName } from "@/utils/cache/local-stor
 const DEFAULT_THEME_NAME = "normal"
 type DefaultThemeName = typeof DEFAULT_THEME_NAME
 
-/** 注册的主题名称, 其中 DefaultThemeName 是必填的 */
+/** 등록된 테마 이름, 그 중 DefaultThemeName은 필수입니다. */
 export type ThemeName = DefaultThemeName | "dark" | "dark-blue"
 
 interface ThemeList {
@@ -12,38 +12,38 @@ interface ThemeList {
   name: ThemeName
 }
 
-/** 主题列表 */
+/** 테마 목록 */
 const themeList: ThemeList[] = [
   {
-    title: "默认",
+    title: "기본",
     name: DEFAULT_THEME_NAME
   },
   {
-    title: "黑暗",
+    title: "어두운",
     name: "dark"
   },
   {
-    title: "深蓝",
+    title: "진한 파랑",
     name: "dark-blue"
   }
 ]
 
-/** 正在应用的主题名称 */
+/** 적용 중인 테마 이름 */
 const activeThemeName = ref<ThemeName>(getActiveThemeName() || DEFAULT_THEME_NAME)
 
-/** 设置主题 */
+/** 테마 설정 */
 const setTheme = (value: ThemeName) => {
   activeThemeName.value = value
 }
 
-/** 在 html 根元素上挂载 class */
+/** HTML 루트 요소에 클래스 부여 */
 const setHtmlRootClassName = (value: ThemeName) => {
   document.documentElement.className = value
 }
 
-/** 初始化 */
+/** 초기화 */
 const initTheme = () => {
-  // watchEffect 来收集副作用
+  // watchEffect로 부작용 수집
   watchEffect(() => {
     const value = activeThemeName.value
     setHtmlRootClassName(value)
@@ -51,7 +51,7 @@ const initTheme = () => {
   })
 }
 
-/** 主题 hook */
+/** 테마 hook */
 export function useTheme() {
   return { themeList, activeThemeName, initTheme, setTheme }
 }

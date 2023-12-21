@@ -2,22 +2,22 @@
 import { h } from "vue"
 import { useTheme } from "@/hooks/useTheme"
 import { ElNotification } from "element-plus"
-// 将 Element Plus 的语言设置为中文
-import zhCn from "element-plus/es/locale/lang/zh-cn"
+// Set Element Plus language to Korean
+import koKr from "element-plus/es/locale/lang/ko"
 
 const { initTheme } = useTheme()
 
-/** 初始化主题 */
+/** Initialize the theme */
 initTheme()
 
-/** 作者小心思 */
+/** Author's Note */
 ElNotification({
-  title: "Hello",
+  title: "춘식이 이벤트",
   type: "success",
   message: h(
     "a",
-    { style: "color: teal", target: "_blank", href: "https://github.com/un-pany/v3-admin-vite" },
-    "小项目获取 star 不易，如果你喜欢这个项目的话，欢迎点击这里支持一个 star ！这是作者持续维护的唯一动力（小声：毕竟是免费的）"
+    { style: "color: teal", target: "_blank", href: "https://ictedu.co.kr/index.php?main_page=home" },
+    "귀여운 춘식이"
   ),
   duration: 0,
   position: "bottom-right"
@@ -25,7 +25,7 @@ ElNotification({
 </script>
 
 <template>
-  <el-config-provider :locale="zhCn">
+  <el-config-provider :locale="koKr">
     <router-view />
   </el-config-provider>
 </template>

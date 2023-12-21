@@ -5,7 +5,7 @@ import { Bell } from "@element-plus/icons-vue"
 import NotifyList from "./NotifyList.vue"
 import { type ListItem, notifyData, messageData, todoData } from "./data"
 
-type TabName = "通知" | "消息" | "待办"
+type TabName = "알림" | "메시지" | "할 일"
 
 interface DataItem {
   name: TabName
@@ -13,40 +13,40 @@ interface DataItem {
   list: ListItem[]
 }
 
-/** 角标当前值 */
+/** 배지 현재 값 */
 const badgeValue = computed(() => {
   return data.value.reduce((sum, item) => sum + item.list.length, 0)
 })
-/** 角标最大值 */
+/** 배지 최대 값 */
 const badgeMax = 99
-/** 面板宽度 */
+/** 팝오버 너비 */
 const popoverWidth = 350
-/** 当前 Tab */
-const activeName = ref<TabName>("通知")
-/** 所有数据 */
+/** 현재 탭 */
+const activeName = ref<TabName>("알림")
+/** 모든 데이터 */
 const data = ref<DataItem[]>([
-  // 通知数据
+  // 알림 데이터
   {
-    name: "通知",
+    name: "알림",
     type: "primary",
     list: notifyData
   },
-  // 消息数据
+  // 메시지 데이터
   {
-    name: "消息",
+    name: "메시지",
     type: "danger",
     list: messageData
   },
-  // 待办数据
+  // 할 일 데이터
   {
-    name: "待办",
+    name: "할 일",
     type: "warning",
     list: todoData
   }
 ])
 
 const handleHistory = () => {
-  ElMessage.success(`跳转到${activeName.value}历史页面`)
+  ElMessage.success(`${activeName.value} 기록 페이지로 이동`)
 }
 </script>
 
@@ -55,7 +55,7 @@ const handleHistory = () => {
     <el-popover placement="bottom" :width="popoverWidth" trigger="click">
       <template #reference>
         <el-badge :value="badgeValue" :max="badgeMax" :hidden="badgeValue === 0">
-          <el-tooltip effect="dark" content="消息通知" placement="bottom">
+          <el-tooltip effect="dark" content="알림" placement="bottom">
             <el-icon :size="20">
               <Bell />
             </el-icon>
@@ -75,7 +75,7 @@ const handleHistory = () => {
           </el-tab-pane>
         </el-tabs>
         <div class="notify-history">
-          <el-button link @click="handleHistory">查看{{ activeName }}历史</el-button>
+          <el-button link @click="handleHistory">{{ activeName }} 기록 보기</el-button>
         </div>
       </template>
     </el-popover>
@@ -87,6 +87,7 @@ const handleHistory = () => {
   margin-right: 10px;
   color: var(--el-text-color-regular);
 }
+
 .notify-history {
   text-align: center;
   padding-top: 12px;

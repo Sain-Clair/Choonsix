@@ -79,6 +79,6 @@ export const isIPv4 = (ip: string) => {
 /** 判断是否为车牌（兼容新能源车牌） */
 export const isLicensePlate = (str: string) => {
   const reg =
-    /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$/
+    /^[베이징, 텐진, 상하이, 충칭, 허베이, 윈난, 랴오닝, 후난, 안후이, 산동, 신강소, 절강, 장시, 호북, 광시, 간쑤, 산시, 몽골, 산시, 길림, 푸젠, 광동, 칭하이, 티베트, 쓰촨 , Ningqiong 및 Qiong`][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$/
   return reg.test(str)
 }
