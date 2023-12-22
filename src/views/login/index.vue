@@ -10,29 +10,29 @@ import ThemeSwitch from "@/components/ThemeSwitch/index.vue"
 
 const router = useRouter()
 
-/** 登录表单元素的引用 */
+/** 로그인 폼 요소의 참조 */
 const loginFormRef = ref<FormInstance | null>(null)
 
-/** 登录按钮 Loading */
+/** 로딩 상태를 나타내는 변수 */
 const loading = ref(false)
-/** 验证码图片 URL */
+/** 인증 코드 이미지 URL */
 const codeUrl = ref("")
-/** 登录表单数据 */
+/** 로그인 폼 데이터 */
 const loginFormData: LoginRequestData = reactive({
   username: "admin",
   password: "12345678",
   code: ""
 })
-/** 登录表单校验规则 */
+/** 로그인 폼 유효성 검사 규칙 */
 const loginFormRules: FormRules = {
-  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  username: [{ required: true, message: "사용자 이름을 입력하세요.", trigger: "blur" }],
   password: [
-    { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 8, max: 16, message: "长度在 8 到 16 个字符", trigger: "blur" }
+    { required: true, message: "비밀번호를 입력하세요.", trigger: "blur" },
+    { min: 8, max: 16, message: "8자에서 16자 사이의 길이여야 합니다.", trigger: "blur" }
   ],
-  code: [{ required: true, message: "请输入验证码", trigger: "blur" }]
+  code: [{ required: true, message: "인증 코드를 입력하세요.", trigger: "blur" }]
 }
-/** 登录逻辑 */
+/** 로그인 로직 */
 const handleLogin = () => {
   loginFormRef.value?.validate((valid: boolean, fields) => {
     if (valid) {
@@ -54,11 +54,11 @@ const handleLogin = () => {
     }
   })
 }
-/** 创建验证码 */
+/** 인증 코드 생성 */
 const createCode = () => {
-  // 先清空验证码的输入
+  // 먼저 인증 코드 입력값을 지웁니다.
   loginFormData.code = ""
-  // 获取验证码
+  // 인증 코드 가져오기
   codeUrl.value = ""
   getLoginCodeApi().then((res) => {
     codeUrl.value = res.data
@@ -139,32 +139,39 @@ createCode()
   align-items: center;
   width: 100%;
   min-height: 100%;
+
   .theme-switch {
     position: fixed;
     top: 5%;
     right: 5%;
     cursor: pointer;
   }
+
   .login-card {
     width: 480px;
     border-radius: 20px;
     box-shadow: 0 0 10px #dcdfe6;
     background-color: #fff;
     overflow: hidden;
+
     .title {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 150px;
+
       img {
         height: 100%;
       }
     }
+
     .content {
       padding: 20px 50px 50px 50px;
+
       :deep(.el-input-group__append) {
         padding: 0;
         overflow: hidden;
+
         .el-image {
           width: 100px;
           height: 40px;
@@ -174,6 +181,7 @@ createCode()
           text-align: center;
         }
       }
+
       .el-button {
         width: 100%;
         margin-top: 10px;
