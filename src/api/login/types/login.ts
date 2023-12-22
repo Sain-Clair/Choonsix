@@ -1,9 +1,9 @@
 export interface LoginRequestData {
-  /** admin 或 editor */
+  /** admin 또는 editor */
   username: "admin" | "editor"
-  /** 密码 */
+  /** 비밀번호 */
   password: string
-  /** 验证码 */
+  /** 인증 코드 */
   code: string
 }
 

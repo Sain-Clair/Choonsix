@@ -101,7 +101,8 @@ const getTableData = () => {
     username: searchData.username || undefined,
     phone: searchData.phone || undefined
   })
-    .then((res) => {
+    .then((res: any) => {
+      // 여기서 ResponseType은 실제 응답 타입에 따라서 정의되어야 합니다.
       paginationData.total = res.data.total
       tableData.value = res.data.list
     })
@@ -112,6 +113,7 @@ const getTableData = () => {
       loading.value = false
     })
 }
+
 const handleSearch = () => {
   paginationData.currentPage === 1 ? getTableData() : (paginationData.currentPage = 1)
 }
