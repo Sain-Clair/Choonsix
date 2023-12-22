@@ -16,8 +16,6 @@ import "element-plus/theme-chalk/dark/css-vars.css"
 import "vxe-table/lib/style.css"
 import "vxe-table-plugin-element/dist/style.css"
 import "@/styles/index.scss"
-// bootstrap 추가
-// import "bootstrap/dist/css/bootstrap.css"
 const app = createApp(App)
 
 /** 加载插件 */
@@ -26,7 +24,8 @@ loadPlugins(app)
 loadSvg(app)
 /** 加载自定义指令 */
 loadDirectives(app)
-
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 app.use(store).use(router)
 router.isReady().then(() => {
   app.mount("#app")
