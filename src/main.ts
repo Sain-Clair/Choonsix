@@ -18,14 +18,15 @@ import "vxe-table-plugin-element/dist/style.css"
 import "@/styles/index.scss"
 const app = createApp(App)
 
-/** 加载插件 */
+/** 플러그인 로드 */
 loadPlugins(app)
-/** 加载全局 SVG */
+/** 전역 SVG 로드 */
 loadSvg(app)
-/** 加载自定义指令 */
+/** 사용자 정의 지시문 로드 */
 loadDirectives(app)
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+
+import "bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css"
 app.use(store).use(router)
 router.isReady().then(() => {
   app.mount("#app")

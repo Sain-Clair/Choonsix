@@ -1,7 +1,7 @@
 import { request } from "@/utils/service"
 import type * as Login from "./types/login"
 
-/** 获取登录验证码 */
+/** 로그인 코드 가져오기 */
 export function getLoginCodeApi() {
   return request<Login.LoginCodeResponseData>({
     url: "login/code",
@@ -9,7 +9,7 @@ export function getLoginCodeApi() {
   })
 }
 
-/** 登录并返回 Token */
+/** 로그인 및 토큰 반환 */
 export function loginApi(data: Login.LoginRequestData) {
   return request<Login.LoginResponseData>({
     url: "users/login",
@@ -18,7 +18,7 @@ export function loginApi(data: Login.LoginRequestData) {
   })
 }
 
-/** 获取用户详情 */
+/** 사용자 정보 가져오기 */
 export function getUserInfoApi() {
   return request<Login.UserInfoResponseData>({
     url: "users/info",

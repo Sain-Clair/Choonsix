@@ -10,7 +10,7 @@ const settingsStore = useSettingsStore()
 <template>
   <section class="app-main">
     <div class="app-scrollbar">
-      <!-- key 采用 route.path 和 route.fullPath 有着不同的效果，大多数时候 path 更通用 -->
+      <!-- "key는 route.path와 route.fullPath를 사용하는 것 간에 다른 효과가 있으며, 대부분의 경우 path가 더 일반적입니다." -->
       <router-view v-slot="{ Component, route }">
         <transition name="el-fade-in" mode="out-in">
           <keep-alive :include="tagsViewStore.cachedViews">
@@ -18,12 +18,12 @@ const settingsStore = useSettingsStore()
           </keep-alive>
         </transition>
       </router-view>
-      <!-- 页脚 -->
+      <!-- 페이지 하단 -->
       <Footer v-if="settingsStore.showFooter" />
     </div>
-    <!-- 返回顶部 -->
+    <!-- 맨 위로 이동하는 버튼 -->
     <el-backtop />
-    <!-- 返回顶部（固定 Header 情况下） -->
+    <!-- 맨 위로 이동하는 버튼 (고정 헤더일 때) -->
     <el-backtop target=".app-scrollbar" />
   </section>
 </template>
@@ -43,6 +43,7 @@ const settingsStore = useSettingsStore()
   @extend %scrollbar;
   display: flex;
   flex-direction: column;
+
   .app-container-grow {
     flex-grow: 1;
   }
