@@ -10,13 +10,13 @@ export interface UpdateTableRequestData {
 }
 
 export interface GetTableRequestData {
-  /** 当前页码 */
+  /** 현재 페이지 번호 */
   currentPage: number
-  /** 查询条数 */
+  /** 조회할 항목 수 */
   size: number
-  /** 查询参数：用户名 */
+  /** 검색 매개변수: 사용자 이름 */
   username?: string
-  /** 查询参数：手机号 */
+  /** 검색 매개변수: 휴대전화 번호 */
   phone?: string
 }
 

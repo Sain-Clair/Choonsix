@@ -6,11 +6,11 @@ import VXETablePluginElement from "vxe-table-plugin-element"
 
 VXETable.use(VXETablePluginElement)
 
-/** 全局默认参数 */
+/** 전역 기본 설정 */
 VXETable.setup({
-  /** 全局尺寸 */
+  /** 전역 크기 */
   size: "medium",
-  /** 全局 zIndex 起始值，如果项目的的 z-index 样式值过大时就需要跟随设置更大，避免被遮挡 */
+  /** 전역 zIndex 시작 값. 만약 프로젝트의 z-index 스타일 값이 큰 경우 더 큰 값으로 설정하여 가려지지 않도록 함 */
   zIndex: 9999,
   /** 版本号，对于某些带数据缓存的功能有用到，上升版本号可以用于重置数据 */
   version: 0,

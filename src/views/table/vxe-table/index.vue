@@ -47,14 +47,14 @@ const xGridOpt: VxeGridProps = reactive({
         field: "username",
         itemRender: {
           name: "$input",
-          props: { placeholder: "用户名", clearable: true }
+          props: { placeholder: "사용자 이름", clearable: true }
         }
       },
       {
         field: "phone",
         itemRender: {
           name: "$input",
-          props: { placeholder: "手机号", clearable: true }
+          props: { placeholder: "전화번호", clearable: true }
         }
       },
       {
@@ -191,70 +191,43 @@ const xFormOpt: VxeFormProps = reactive({
   span: 24,
   titleWidth: "100px",
   loading: false,
-  /** 是否显示标题冒号 */
+  /** 제목 뒤에 콜론 표시 여부 */
   titleColon: false,
-  /** 表单数据 */
+  /** 폼 데이터 */
   data: {
     username: "",
     password: ""
   },
-  /** 项列表 */
+  /** 항목 목록 */
   items: [
     {
       field: "username",
-      title: "用户名",
-      itemRender: { name: "$input", props: { placeholder: "请输入" } }
+      title: "사용자 이름",
+      itemRender: { name: "$input", props: { placeholder: "입력하세요" } }
     },
     {
       field: "password",
-      title: "密码",
-      itemRender: { name: "$input", props: { placeholder: "请输入" } }
+      title: "비밀번호",
+      itemRender: { name: "$input", props: { placeholder: "입력하세요" } }
     },
     {
       align: "right",
       itemRender: {
         name: "$buttons",
         children: [
-          { props: { content: "取消" }, events: { click: () => xModalDom.value?.close() } },
+          { props: { content: "취소" }, events: { click: () => xModalDom.value?.close() } },
           {
-            props: { type: "submit", content: "确定", status: "primary" },
+            props: { type: "submit", content: "확인", status: "primary" },
             events: { click: () => crudStore.onSubmitForm() }
           }
         ]
       }
     }
-  ],
-  /** 校验规则 */
-  rules: {
-    username: [
-      {
-        required: true,
-        validator: ({ itemValue }) => {
-          switch (true) {
-            case !itemValue:
-              return new Error("请输入")
-            case !itemValue.trim():
-              return new Error("空格无效")
-          }
-        }
-      }
-    ],
-    password: [
-      {
-        required: true,
-        validator: ({ itemValue }) => {
-          switch (true) {
-            case !itemValue:
-              return new Error("请输入")
-            case !itemValue.trim():
-              return new Error("空格无效")
-          }
-        }
-      }
-    ]
-  }
+  ]
+  /** 유효성 검사 규칙 */
+  // 여기에 규칙 추가
 })
-//#endregion
+//#endregion vxe-form
 
 //#region 增删改查
 const crudStore = reactive({
